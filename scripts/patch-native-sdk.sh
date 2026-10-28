@@ -10,7 +10,6 @@ PATCHES=(
   "$ROOT/patches/native-sdk-macos-headerpad.patch"
   "$ROOT/patches/native-sdk-macos-activation.patch"
   "$ROOT/patches/native-sdk-windows-pet-input.patch"
-  "$ROOT/patches/native-sdk-windows-scroll-physics.patch"
 )
 SDK="${NATIVE_SDK_PATH:-}"
 
@@ -38,3 +37,8 @@ for PATCH in "${PATCHES[@]}"; do
   git -C "$SDK" apply --unidiff-zero "$PATCH"
   echo "patch-native-sdk: applied $(basename "$PATCH")"
 done
+# Aplica o ajuste de rolagem no Windows ignorando arquivos .patch
+echo "patch-native-sdk: aplicando ajuste de física via perl"
+perl -pi -e 's/wheel_velocity_scale: f32 = 60\.0/wheel_velocity_scale: f32 = 0.0/' "$SDK/src/primitives/canvas/tokens.zig"
+perl -pi -e 's/deceleration_per_second: f32 = 0\.86/deceleration_per_second: f32 = 0.0/' "$SDK/src/primitives/canvas/tokens.zig"
+perl -pi -e 's/overscroll: OverscrollBehavior = \.elastic/overscroll: OverscrollBehavior = .none/' "$SDK/src/primitives/canvas/tokens.zig"
