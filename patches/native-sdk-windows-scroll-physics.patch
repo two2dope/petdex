@@ -1,0 +1,15 @@
+--- a/src/primitives/canvas/tokens.zig
++++ b/src/primitives/canvas/tokens.zig
+@@ -48,7 +48,7 @@ pub const ScrollPhysics = struct {
+     /// Multiplier applied to discrete wheel delta to compute fling velocity.
+-    wheel_velocity_scale: f32 = 60.0,
++    wheel_velocity_scale: f32 = 0.0,
+     /// Exponential velocity decay rate per second during inertial fling.
+-    deceleration_per_second: f32 = 0.86,
++    deceleration_per_second: f32 = 0.0,
+     /// Velocity threshold (pt/s) below which fling animation terminates.
+     stop_velocity: f32 = 5.0,
+     /// Spring bounce parameters for overscroll rubberbanding.
+-    overscroll: OverscrollBehavior = .elastic,
++    overscroll: OverscrollBehavior = .none,
+ };
